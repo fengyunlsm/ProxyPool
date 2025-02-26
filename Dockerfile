@@ -1,7 +1,7 @@
 FROM python:3.7-alpine AS build
 COPY requirements.txt .
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-RUN apk update &&\
+    apk update &&\
     apk add --no-cache gcc g++ libffi-dev openssl-dev libxml2-dev libxslt-dev build-base musl-dev &&\
     pip install -U pip &&\
     pip install --timeout 30 --user --no-cache-dir --no-warn-script-location -r requirements.txt
