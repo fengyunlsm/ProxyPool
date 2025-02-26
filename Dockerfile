@@ -10,7 +10,9 @@ FROM python:3.7-alpine
 ENV APP_ENV=prod
 ENV LOCAL_PKG="/root/.local"
 COPY --from=build ${LOCAL_PKG} ${LOCAL_PKG}
-RUN apk update && apk add --no-cache libffi-dev openssl-dev libxslt-dev &&\
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache libffi-dev openssl-dev libxslt-dev && \
     ln -sf ${LOCAL_PKG}/bin/* /usr/local/bin/
 WORKDIR /app
 COPY . .
